@@ -1,16 +1,16 @@
 package modeles;
 
 public class Student {
-    private String id;
+    private int id;
     private String lastName;
     private String name;
     private String email;
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -41,7 +41,7 @@ public class Student {
     public Student() {
     }
 
-    public Student(String id, String lastName, String name, String email) {
+    public Student(int id, String lastName, String name, String email) {
         this.id = id;
         this.lastName = lastName;
         this.name = name;
