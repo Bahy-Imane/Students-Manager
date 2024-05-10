@@ -26,7 +26,11 @@ public class StudentController {
         return "student-list";
     }
 
-    @PostMapping("/saveStudent")
+    @GetMapping("/addstudent")
+    public String showAddForm() {
+        return "add-student";
+    }
+    @PostMapping("/addstudent")
     public String saveStudent(@ModelAttribute Student student) {
         students.add(student);
         return "redirect:/";
@@ -74,4 +78,19 @@ public class StudentController {
         }
         return "redirect:/";
     }
+
+    @GetMapping("/search")
+    public String searchStudents(@RequestParam("keyword") String keyword, Model model) {
+        List<Student> searchResults = new ArrayList<>();
+        for (Student student : students) {
+            // Vous pouvez modifier cette condition selon vos besoins, par exemple,
+            // vous pouvez chercher dans le nom, le prénom, l'ID, l'email, etc.
+            if (student.getLastName().contains(keyword) || student.getName().contains(keyword)) {
+                searchResults.add(student);
+            }
+        }
+        model.addAttribute("students", searchResults);
+        return "student-list";
+    }
+
 }
