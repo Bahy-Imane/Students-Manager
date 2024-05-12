@@ -22,7 +22,7 @@ public class StudentController {
     }
 
     @RequestMapping(value = "/")
-    public String homePage(Model model) {
+    public String homePage(BufferedCodeBuilder.Model model) {
         model.addAttribute("students", students);
         return "student-list";
     }
@@ -31,6 +31,7 @@ public class StudentController {
     public String showAddForm() {
         return "add-student";
     }
+
     @PostMapping("/addstudent")
     public String saveStudent(@ModelAttribute Student student) {
         students.add(student);
@@ -93,6 +94,7 @@ public class StudentController {
 //    }
 
 
+
     @GetMapping("/search")
     public String searchStudents(@RequestParam("keyword") String keyword, Model model) {
         List<Student> searchResults = new ArrayList<>();
@@ -102,7 +104,12 @@ public class StudentController {
             }
         }
         model.addAttribute("students", searchResults);
+
         model.addAttribute("keyword", keyword);
         return "student-list";
     }
+        return "student-list";
+    }
+
+
 }
