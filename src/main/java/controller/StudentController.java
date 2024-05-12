@@ -17,7 +17,8 @@ public class StudentController {
     @PostConstruct
     public void init() {
         students.add(new Student(1, "bahy", "imane", "imane@gmail.com"));
-        students.add(new Student(2, "jalal", "ilham", "jalal@gmail.com")); // Correction de l'ID
+        students.add(new Student(2, "jalal", "ilham", "jalal@gmail.com"));
+        students.add(new Student(3, "bahy", "rihab", "rihab@gmail.com"));
     }
 
     @RequestMapping(value = "/")
@@ -26,7 +27,11 @@ public class StudentController {
         return "student-list";
     }
 
-    @PostMapping("/saveStudent")
+    @GetMapping("/addstudent")
+    public String showAddForm() {
+        return "add-student";
+    }
+    @PostMapping("/addstudent")
     public String saveStudent(@ModelAttribute Student student) {
         students.add(student);
         return "redirect:/";
@@ -73,5 +78,31 @@ public class StudentController {
             }
         }
         return "redirect:/";
+    }
+
+//    @GetMapping("/search")
+//    public String searchStudents(@RequestParam("keyword") String keyword, Model model) {
+//        List<Student> searchResults = new ArrayList<>();
+//        for (Student student : students) {
+//            if (student.getLastName().contains(keyword) || student.getName().contains(keyword)) {
+//                searchResults.add(student);
+//            }
+//        }
+//        model.addAttribute("students", searchResults);
+//        return "student-list";
+//    }
+
+
+    @GetMapping("/search")
+    public String searchStudents(@RequestParam("keyword") String keyword, Model model) {
+        List<Student> searchResults = new ArrayList<>();
+        for (Student student : students) {
+            if (student.getLastName().contains(keyword) || student.getName().contains(keyword)) {
+                searchResults.add(student);
+            }
+        }
+        model.addAttribute("students", searchResults);
+        model.addAttribute("keyword", keyword);
+        return "student-list";
     }
 }
